@@ -288,8 +288,15 @@ export default function ModernLuminariesSection() {
   // Simple scroll effects
   const scale = useTransform(scrollYProgress, [0, 0.5, 1], [0.95, 1, 0.95]);
 
-  const currentMembers =
-    activeGroup === "faculty" ? facultyMembers : leadershipMembers;
+  import { useLuminariesData } from "../hooks/useLuminariesData";
+
+const currentMembers = (() => {
+  const { faculty: facultyFromHook, leadership: leadershipFromHook } = useLuminariesData();
+  if (activeGroup === "faculty") {
+    return facultyFromHook && facultyFromHook.length ? facultyFromHook : facultyMembers;
+  }
+  return leadershipFromHook && leadershipFromHook.length ? leadershipFromHook : leadershipMembers;
+})();
 
   const MemberCard = ({
     member,
