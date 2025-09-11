@@ -63,6 +63,8 @@ export default function AdminLuminariesPanel() {
         quote: "",
       });
       setEditingId(null);
+    } else {
+      alert("Please fill in Name, Title, and Email before adding a luminary.");
     }
   };
 
@@ -136,17 +138,19 @@ export default function AdminLuminariesPanel() {
             <Input
               placeholder="Achievements (comma separated)"
               value={Array.isArray(newLuminary.achievements) ? newLuminary.achievements.join(", ") : (newLuminary.achievements as unknown as string)}
-              onChange={(e) => setNewLuminary((p) => ({ ...p, achievements: e.target.value.split(",").map((s) => s.trim()).filter(Boolean) }))}
+              onChange={(e) => setNewLuminary((p) => ({ ...p, achievements: e.target.value }))}
               className="bg-finance-navy/50 border-finance-gold/20"
             />
             <Input
               placeholder="Expertise (comma separated)"
               value={Array.isArray(newLuminary.expertise) ? newLuminary.expertise.join(", ") : (newLuminary.expertise as unknown as string)}
-              onChange={(e) => setNewLuminary((p) => ({ ...p, expertise: e.target.value.split(",").map((s) => s.trim()).filter(Boolean) }))}
+              onChange={(e) => setNewLuminary((p) => ({ ...p, expertise: e.target.value }))}
               className="bg-finance-navy/50 border-finance-gold/20"
             />
             <Button
               onClick={handleAdd}
+              disabled={!newLuminary.name.trim() || !newLuminary.title.trim() || !newLuminary.email.trim()}
+              title={!newLuminary.name.trim() || !newLuminary.title.trim() || !newLuminary.email.trim() ? "Fill Name, Title, and Email to enable" : undefined}
               className="bg-gradient-to-r from-finance-gold to-finance-electric text-finance-navy hover:scale-105 transition-transform w-fit"
             >
               <Plus className="w-4 h-4 mr-2" /> {editingId ? "Save Changes" : "Add Luminary"}

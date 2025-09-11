@@ -108,67 +108,29 @@ export function useEventsData() {
     };
   }, []);
 
-  // Function to load events config from localStorage or fallback
-  const loadEventsConfig = () => {
-    const savedConfig = localStorage.getItem("tfs-events-config");
-    if (savedConfig) {
-      try {
-        const parsedConfig = JSON.parse(savedConfig);
-        setEventsConfig(parsedConfig);
-        return true;
-      } catch (error) {
-        console.warn("Failed to parse saved events config, using default");
-        setEventsConfig(defaultConfig);
-        return false;
-      }
-    }
-    return false;
-  };
+  // Previously used localStorage; now prefer server as single source of truth
 
   // Load events data with server sync
   const loadEventsFromServer = async () => {
     try {
-      // Add timeout and error handling wrapper
-      const fetchWithTimeout = new Promise<Response>((resolve, reject) => {
-        const controller = new AbortController();
-        const timeoutId = setTimeout(() => {
-          controller.abort();
-          reject(new Error("Request timeout"));
-        }, 8000);
-
-        fetch("/api/events", {
-          signal: controller.signal,
-          headers: {
-            Accept: "application/json",
-          },
-        })
-          .then((response) => {
-            clearTimeout(timeoutId);
-            resolve(response);
-          })
-          .catch((error) => {
-            clearTimeout(timeoutId);
-            reject(error);
-          });
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 8000);
+      const response = await fetch("/api/events", {
+        signal: controller.signal,
+        headers: { Accept: "application/json" },
       });
-
-      const response = await fetchWithTimeout;
+      clearTimeout(timeoutId);
       if (response.ok) {
         const result = await response.json();
         if (result.success && result.data) {
           setEventsConfig(result.data);
-          // Update local storage with server data
-          localStorage.setItem(
-            "tfs-events-config",
-            JSON.stringify(result.data),
-          );
           return true;
         }
       }
       throw new Error("Server request failed");
     } catch (error) {
       console.warn(
-        "Failed to load events from server, using local/default data:",
+        "Failed to load events from server, using default data:",
         error?.message || "Unknown error",
       );
       return false;
@@ -178,36 +140,14 @@ export function useEventsData() {
   // Check if local data needs sync with server
   const checkServerSync = async () => {
     try {
-      const localConfig = localStorage.getItem("tfs-events-config");
-      const localLastModified = localConfig
-        ? JSON.parse(localConfig).lastModified || 0
-        : 0;
-
-      // Add timeout and comprehensive error handling
-      const fetchWithTimeout = new Promise<Response>((resolve, reject) => {
-        const controller = new AbortController();
-        const timeoutId = setTimeout(() => {
-          controller.abort();
-          reject(new Error("Sync check timeout"));
-        }, 5000); // Shorter timeout for sync checks
-
-        fetch(`/api/events/sync?lastModified=${localLastModified}`, {
-          signal: controller.signal,
-          headers: {
-            Accept: "application/json",
-          },
-        })
-          .then((response) => {
-            clearTimeout(timeoutId);
-            resolve(response);
-          })
-          .catch((error) => {
-            clearTimeout(timeoutId);
-            reject(error);
-          });
-      });
-
-      const response = await fetchWithTimeout;
+      const localLastModified = eventsConfig.lastModified || 0;
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 5000);
+      const response = await fetch(
+        `/api/events/sync?lastModified=${localLastModified}`,
+        { signal: controller.signal, headers: { Accept: "application/json" } },
+      );
+      clearTimeout(timeoutId);
       if (response.ok) {
         const result = await response.json();
         if (result.success && result.needsUpdate) {
@@ -216,8 +156,6 @@ export function useEventsData() {
         }
       }
     } catch (error) {
-      // Silently handle sync errors - don't log to avoid spam
-      // Only log if it's not a common network error
       if (
         error?.message &&
         !error.message.includes("fetch") &&
@@ -233,21 +171,10 @@ export function useEventsData() {
 
   useEffect(() => {
     const initializeEvents = async () => {
-      // First try to load from local storage
-      const loadedFromStorage = loadEventsConfig();
-
-      if (!loadedFromStorage) {
-        // No local data, load from server
-        const loadedFromServer = await loadEventsFromServer();
-        if (!loadedFromServer) {
-          // Fallback to default if server fails
-          setEventsConfig(defaultConfig);
-        }
-      } else {
-        // Have local data, check if server has updates
-        await checkServerSync();
+      const loadedFromServer = await loadEventsFromServer();
+      if (!loadedFromServer) {
+        setEventsConfig(defaultConfig);
       }
-
       setLoading(false);
     };
 
@@ -259,36 +186,19 @@ export function useEventsData() {
     return () => clearInterval(syncInterval);
   }, []);
 
-  // Listen for localStorage changes from admin panel
+  // Keep same-tab notifications for immediate UI updates
   useEffect(() => {
-    const handleStorageChange = (e: StorageEvent) => {
-      if (e.key === "tfs-events-config" && e.newValue) {
-        try {
-          const newConfig = JSON.parse(e.newValue);
-          setEventsConfig(newConfig);
-        } catch (error) {
-          console.warn("Failed to parse updated events config");
-        }
-      }
-    };
-
-    // Listen for storage events from other tabs/windows
-    window.addEventListener("storage", handleStorageChange);
-
-    // Also listen for custom events within the same tab
     const handleCustomStorageChange = () => {
-      loadEventsConfig();
+      // reload from server to reflect changes
+      loadEventsFromServer();
     };
 
     window.addEventListener("tfs-events-updated", handleCustomStorageChange);
-
-    return () => {
-      window.removeEventListener("storage", handleStorageChange);
+    return () =>
       window.removeEventListener(
         "tfs-events-updated",
         handleCustomStorageChange,
       );
-    };
   }, []);
 
   // Helper function to get title from ID
@@ -369,7 +279,6 @@ export function useEventsData() {
 
       // Update local state immediately
       setEventsConfig(newConfig);
-      localStorage.setItem("tfs-events-config", JSON.stringify(newConfig));
 
       // Sync with server with proper error handling
       try {
