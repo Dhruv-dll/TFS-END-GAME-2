@@ -69,18 +69,7 @@ export function useSponsorsData() {
   const [config, setConfig] = useState<SponsorsConfig>(defaultSponsors);
   const [loading, setLoading] = useState(true);
 
-  // Load from localStorage or server
-  const loadFromLocal = () => {
-    const saved = localStorage.getItem("tfs-sponsors-config");
-    if (!saved) return false;
-    try {
-      setConfig(JSON.parse(saved));
-      return true;
-    } catch {
-      setConfig(defaultSponsors);
-      return false;
-    }
-  };
+  // Prefer server as single source of truth; remove localStorage usage
 
   const fetchWithTimeout = async (input: RequestInfo, init?: RequestInit, timeout = 8000) => {
     const controller = new AbortController();
