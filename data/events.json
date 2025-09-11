@@ -9,8 +9,13 @@
         {
           "title": "Saturday Seminar 2: Banking 101: Demystifying India's Backbone",
           "description": "Understanding the fundamentals of India's banking system"
+        },
+        {
+          "title": "sdasdas",
+          "description": "ddasdasd"
         }
-      ]
+      ],
+      "comingSoon": false
     },
     "networking-events": {
       "comingSoon": true
@@ -20,5 +25,5 @@
     }
   },
   "upcomingEvents": [],
-  "lastModified": 0
+  "lastModified": 1757599379369
 }
