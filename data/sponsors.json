@@ -35,6 +35,15 @@
       "description": "Quality assurance and certification services provider supporting academic excellence standards.",
       "isActive": false,
       "website": "https://iqas.co.in"
+    },
+     {
+      "id": "",
+      "name": "",
+      "logo": "https://drive.google.com/file/d/1eIQ4v6i3QOaBM-lUyOFXvCp4elzETs-a/view?usp=sharing",
+      "industry": "",
+      "description": "",
+      "isActive": true,
+      "website": "https://www.icici.bank.in/"
     }
   ],
   "lastModified": 1763624944455
