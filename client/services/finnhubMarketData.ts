@@ -573,13 +573,29 @@ class FinnhubMarketDataService {
 
       // Immediately switch to fallback mode for any error
       this.fallbackMode = true;
-      this.apiFailureCount = 999; // Prevent further API attempts
+      this.apiFailureCount = 999;
 
       console.log(
         "📊 Switching to fallback mode immediately due to error:",
         errorMessage,
       );
-      return this.getFallbackMarketData();
+
+      // Ensure we always return data, never throw
+      try {
+        return this.getFallbackMarketData();
+      } catch (fallbackError) {
+        console.warn("📊 Fallback data generation failed, returning minimal data");
+        return {
+          stocks: [],
+          sentiment: {
+            sentiment: "neutral",
+            advanceDeclineRatio: 0.5,
+            positiveStocks: 0,
+            totalStocks: 0,
+          },
+          currencies: [],
+        };
+      }
     }
   }
 
