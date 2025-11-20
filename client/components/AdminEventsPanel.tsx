@@ -52,6 +52,9 @@ export default function AdminEventsPanel({
     removeSpeaker,
   } = useConclaveSessionsData();
 
+  const { magazines, addMagazine, updateMagazine, removeMagazine } =
+    useFinsightMagazines();
+
   const [newLuminary, setNewLuminary] = useState<LuminaryMember>({
     id: "",
     name: "",
