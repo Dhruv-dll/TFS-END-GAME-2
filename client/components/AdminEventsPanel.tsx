@@ -271,6 +271,39 @@ export default function AdminEventsPanel({
     }
   };
 
+  const handleAddConclaveSession = () => {
+    if (newSession.name.trim()) {
+      addSession({
+        name: newSession.name,
+        description: newSession.description,
+        speakers: [],
+      });
+      setNewSession({ name: "", description: "" });
+      alert("Session added successfully!");
+    } else {
+      alert("Please enter a session name.");
+    }
+  };
+
+  const handleAddSpeaker = () => {
+    if (
+      selectedSessionForSpeaker &&
+      newSpeaker.name.trim() &&
+      newSpeaker.linkedinId.trim()
+    ) {
+      addSpeaker(selectedSessionForSpeaker, {
+        name: newSpeaker.name,
+        linkedinId: newSpeaker.linkedinId,
+        photo: newSpeaker.photo,
+        bio: newSpeaker.bio,
+      });
+      setNewSpeaker({ name: "", linkedinId: "", photo: "", bio: "" });
+      alert("Speaker added successfully!");
+    } else {
+      alert("Please select a session and fill in speaker name and LinkedIn ID.");
+    }
+  };
+
   return (
     <AnimatePresence>
       {isOpen && (
