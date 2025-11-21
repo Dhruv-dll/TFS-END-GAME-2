@@ -148,13 +148,22 @@ export function useConclaveSessionsData() {
         });
 
         if (!response.ok) {
-          const errorData = await response.json();
-          throw new Error(
-            errorData.message || "Failed to save sessions to server",
-          );
+          let errorMessage = "Failed to save sessions to server";
+          try {
+            const errorData = await response.json();
+            errorMessage = errorData.message || errorMessage;
+          } catch {
+            errorMessage = `${errorMessage} (HTTP ${response.status})`;
+          }
+          throw new Error(errorMessage);
         }
 
-        const result = await response.json();
+        let result;
+        try {
+          result = await response.json();
+        } catch {
+          throw new Error("Invalid response from server");
+        }
         if (!result.success) {
           throw new Error(result.error || "Server returned failure response");
         }
