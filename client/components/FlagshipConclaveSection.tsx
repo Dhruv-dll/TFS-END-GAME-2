@@ -1,7 +1,14 @@
 import React, { useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useInView } from "react-intersection-observer";
-import { Clock, Users, MapPin, ExternalLink, ChevronDown, ChevronUp } from "lucide-react";
+import {
+  Clock,
+  Users,
+  MapPin,
+  ExternalLink,
+  ChevronDown,
+  ChevronUp,
+} from "lucide-react";
 import { Button } from "./ui/button";
 import { useConclaveSessionsData } from "../hooks/useConclaveSessionsData";
 
@@ -54,7 +61,8 @@ export default function FlagshipConclaveSection() {
             </h2>
             <div className="w-32 h-1 bg-gradient-to-r from-finance-teal to-finance-mint mx-auto mb-6" />
             <p className="text-xl text-foreground/80 max-w-3xl mx-auto">
-              Exclusive sessions featuring industry experts, thought leaders, and innovators shaping the future of finance
+              Exclusive sessions featuring industry experts, thought leaders,
+              and innovators shaping the future of finance
             </p>
           </motion.div>
         )}
@@ -75,7 +83,10 @@ export default function FlagshipConclaveSection() {
             >
               <motion.div
                 className="relative h-full bg-gradient-to-br from-finance-navy/80 to-finance-navy-light/50 backdrop-blur-xl border border-finance-teal/30 rounded-2xl overflow-hidden hover:border-finance-teal/60 transition-all duration-300"
-                whileHover={{ y: -5, boxShadow: "0 20px 40px rgba(32, 178, 170, 0.2)" }}
+                whileHover={{
+                  y: -5,
+                  boxShadow: "0 20px 40px rgba(32, 178, 170, 0.2)",
+                }}
               >
                 {/* Session Header */}
                 <div className="p-6 border-b border-finance-teal/20">
@@ -104,7 +115,10 @@ export default function FlagshipConclaveSection() {
                       {/* Speaker Count */}
                       <div className="flex items-center gap-2 text-finance-electric text-sm mt-2">
                         <Users className="w-4 h-4" />
-                        <span>{session.speakers.length} Speaker{session.speakers.length !== 1 ? "s" : ""}</span>
+                        <span>
+                          {session.speakers.length} Speaker
+                          {session.speakers.length !== 1 ? "s" : ""}
+                        </span>
                       </div>
                     </div>
                   </div>
@@ -128,7 +142,8 @@ export default function FlagshipConclaveSection() {
                               alt={speaker.name}
                               className="w-16 h-16 rounded-lg object-cover flex-shrink-0"
                               onError={(e) => {
-                                (e.target as HTMLImageElement).style.display = "none";
+                                (e.target as HTMLImageElement).style.display =
+                                  "none";
                               }}
                             />
                           )}
@@ -201,7 +216,10 @@ export default function FlagshipConclaveSection() {
           </div>
           <div className="bg-gradient-to-br from-finance-electric/10 to-finance-teal/10 rounded-lg p-6 border border-finance-electric/30 text-center">
             <div className="text-4xl font-bold text-finance-electric mb-2">
-              {new Set(sessions.flatMap((s) => s.speakers.map((sp) => sp.id))).size}
+              {
+                new Set(sessions.flatMap((s) => s.speakers.map((sp) => sp.id)))
+                  .size
+              }
             </div>
             <div className="text-foreground/70">Unique Experts</div>
           </div>

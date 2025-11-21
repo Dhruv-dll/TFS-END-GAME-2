@@ -31,7 +31,8 @@ const defaultConfig: SessionsConfig = {
 };
 
 export function useConclaveSessionsData() {
-  const [sessionsConfig, setSessionsConfig] = useState<SessionsConfig>(defaultConfig);
+  const [sessionsConfig, setSessionsConfig] =
+    useState<SessionsConfig>(defaultConfig);
   const [loading, setLoading] = useState(true);
 
   // Load data from localStorage on mount
@@ -82,11 +83,14 @@ export function useConclaveSessionsData() {
     return newSession;
   };
 
-  const updateSession = (sessionId: string, updates: Partial<ConclaveSession>) => {
+  const updateSession = (
+    sessionId: string,
+    updates: Partial<ConclaveSession>,
+  ) => {
     setSessionsConfig((prev) => ({
       ...prev,
       sessions: prev.sessions.map((s) =>
-        s.id === sessionId ? { ...s, ...updates } : s
+        s.id === sessionId ? { ...s, ...updates } : s,
       ),
     }));
   };
@@ -103,23 +107,23 @@ export function useConclaveSessionsData() {
       ...speaker,
       id: `speaker-${Date.now()}`,
     };
-    
+
     setSessionsConfig((prev) => ({
       ...prev,
       sessions: prev.sessions.map((s) =>
         s.id === sessionId
           ? { ...s, speakers: [...s.speakers, newSpeaker] }
-          : s
+          : s,
       ),
     }));
-    
+
     return newSpeaker;
   };
 
   const updateSpeaker = (
     sessionId: string,
     speakerId: string,
-    updates: Partial<Speaker>
+    updates: Partial<Speaker>,
   ) => {
     setSessionsConfig((prev) => ({
       ...prev,
@@ -128,10 +132,10 @@ export function useConclaveSessionsData() {
           ? {
               ...s,
               speakers: s.speakers.map((sp) =>
-                sp.id === speakerId ? { ...sp, ...updates } : sp
+                sp.id === speakerId ? { ...sp, ...updates } : sp,
               ),
             }
-          : s
+          : s,
       ),
     }));
   };
@@ -145,7 +149,7 @@ export function useConclaveSessionsData() {
               ...s,
               speakers: s.speakers.filter((sp) => sp.id !== speakerId),
             }
-          : s
+          : s,
       ),
     }));
   };

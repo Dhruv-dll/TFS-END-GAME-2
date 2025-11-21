@@ -1,12 +1,29 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Plus, X, Save, Settings, Calendar, Users, Trophy, Mic, BookOpen } from "lucide-react";
+import {
+  Plus,
+  X,
+  Save,
+  Settings,
+  Calendar,
+  Users,
+  Trophy,
+  Mic,
+  BookOpen,
+} from "lucide-react";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { useEventsData } from "../hooks/useEventsData";
 import { useSponsorsData, SponsorItem } from "../hooks/useSponsorsData";
-import { useLuminariesData, TeamMember as LuminaryMember } from "../hooks/useLuminariesData";
-import { useConclaveSessionsData, Speaker, ConclaveSession } from "../hooks/useConclaveSessionsData";
+import {
+  useLuminariesData,
+  TeamMember as LuminaryMember,
+} from "../hooks/useLuminariesData";
+import {
+  useConclaveSessionsData,
+  Speaker,
+  ConclaveSession,
+} from "../hooks/useConclaveSessionsData";
 import { useFinsightMagazines, Magazine } from "../hooks/useFinsightMagazines";
 import AdminLuminariesPanel from "./AdminLuminariesPanel";
 
@@ -19,9 +36,9 @@ export default function AdminEventsPanel({
   isOpen,
   onClose,
 }: AdminEventsPanelProps) {
-  const [activeSection, setActiveSection] = useState<"events" | "sponsors" | "luminaries" | "sessions" | "magazines">(
-    "events",
-  );
+  const [activeSection, setActiveSection] = useState<
+    "events" | "sponsors" | "luminaries" | "sessions" | "magazines"
+  >("events");
 
   const {
     addSaturdaySession,
@@ -67,7 +84,9 @@ export default function AdminEventsPanel({
     expertise: [],
     quote: "",
   });
-  const [luminaryGroup, setLuminaryGroup] = useState<"faculty" | "leadership">("faculty");
+  const [luminaryGroup, setLuminaryGroup] = useState<"faculty" | "leadership">(
+    "faculty",
+  );
 
   // Conclave Sessions state
   const [newSession, setNewSession] = useState({
@@ -86,7 +105,9 @@ export default function AdminEventsPanel({
     endTime: "",
   });
 
-  const [selectedSessionForSpeaker, setSelectedSessionForSpeaker] = useState<string | null>(null);
+  const [selectedSessionForSpeaker, setSelectedSessionForSpeaker] = useState<
+    string | null
+  >(null);
 
   // Magazine state
   const [newMagazine, setNewMagazine] = useState({
@@ -159,12 +180,12 @@ export default function AdminEventsPanel({
 
     const date = new Date(dateISO);
     const options: Intl.DateTimeFormatOptions = {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric'
+      year: "numeric",
+      month: "long",
+      day: "numeric",
     };
 
-    return date.toLocaleDateString('en-US', options);
+    return date.toLocaleDateString("en-US", options);
   };
 
   // Handle date input change
@@ -231,7 +252,9 @@ export default function AdminEventsPanel({
         countdown: { days: 0, hours: 0, minutes: 0 },
       });
 
-      alert(`Upcoming Event "${eventWithId.title}" added successfully! Check the timeline section.`);
+      alert(
+        `Upcoming Event "${eventWithId.title}" added successfully! Check the timeline section.`,
+      );
     } else {
       alert("Please fill in at least the event title and date before adding.");
     }
@@ -259,7 +282,11 @@ export default function AdminEventsPanel({
   };
 
   const handleAddLuminary = () => {
-    if (newLuminary.name.trim() && newLuminary.title.trim() && newLuminary.email.trim()) {
+    if (
+      newLuminary.name.trim() &&
+      newLuminary.title.trim() &&
+      newLuminary.email.trim()
+    ) {
       const payload: LuminaryMember = {
         ...newLuminary,
         id: newLuminary.id || `${luminaryGroup}-${Date.now()}`,
@@ -323,10 +350,19 @@ export default function AdminEventsPanel({
         startTime: newSpeaker.startTime,
         endTime: newSpeaker.endTime,
       });
-      setNewSpeaker({ name: "", linkedinId: "", photo: "", bio: "", startTime: "", endTime: "" });
+      setNewSpeaker({
+        name: "",
+        linkedinId: "",
+        photo: "",
+        bio: "",
+        startTime: "",
+        endTime: "",
+      });
       alert("Speaker added successfully!");
     } else {
-      alert("Please select a session and fill in speaker name and LinkedIn ID.");
+      alert(
+        "Please select a session and fill in speaker name and LinkedIn ID.",
+      );
     }
   };
 
@@ -375,7 +411,9 @@ export default function AdminEventsPanel({
 
       alert("Magazine added successfully!");
     } else {
-      alert("Please fill in title, edition, cover image URL, and magazine link.");
+      alert(
+        "Please fill in title, edition, cover image URL, and magazine link.",
+      );
     }
   };
 
@@ -406,8 +444,8 @@ export default function AdminEventsPanel({
                   {activeSection === "events"
                     ? "Admin Events Panel"
                     : activeSection === "sponsors"
-                    ? "Admin Sponsors Panel"
-                    : "Admin Luminaries Panel"}
+                      ? "Admin Sponsors Panel"
+                      : "Admin Luminaries Panel"}
                 </h2>
               </div>
               <button
@@ -650,8 +688,9 @@ export default function AdminEventsPanel({
                                   alt={mag.title}
                                   className="w-16 h-24 rounded object-cover flex-shrink-0"
                                   onError={(e) => {
-                                    (e.target as HTMLImageElement).style.display =
-                                      "none";
+                                    (
+                                      e.target as HTMLImageElement
+                                    ).style.display = "none";
                                   }}
                                 />
                               )}
@@ -668,17 +707,23 @@ export default function AdminEventsPanel({
                                   </p>
                                 )}
                                 <div className="flex flex-wrap gap-1 mb-2">
-                                  {mag.categories.slice(0, 3).map((cat, idx) => (
-                                    <span
-                                      key={idx}
-                                      className="text-xs bg-finance-navy px-2 py-1 rounded text-finance-teal border border-finance-teal/30"
-                                    >
-                                      {cat}
-                                    </span>
-                                  ))}
+                                  {mag.categories
+                                    .slice(0, 3)
+                                    .map((cat, idx) => (
+                                      <span
+                                        key={idx}
+                                        className="text-xs bg-finance-navy px-2 py-1 rounded text-finance-teal border border-finance-teal/30"
+                                      >
+                                        {cat}
+                                      </span>
+                                    ))}
                                 </div>
                                 <div className="text-xs text-foreground/60 space-y-1">
-                                  <div>📄 {mag.articles} Articles | 📥 {mag.downloads} Downloads | ⏱️ {mag.readTime}</div>
+                                  <div>
+                                    📄 {mag.articles} Articles | 📥{" "}
+                                    {mag.downloads} Downloads | ⏱️{" "}
+                                    {mag.readTime}
+                                  </div>
                                   <div className="text-finance-teal">
                                     <a
                                       href={mag.link}
@@ -708,7 +753,8 @@ export default function AdminEventsPanel({
 
                   {magazines.length === 0 && (
                     <div className="text-center py-8 text-finance-gold/60">
-                      No magazines added yet. Add your first Finsight magazine above!
+                      No magazines added yet. Add your first Finsight magazine
+                      above!
                     </div>
                   )}
                 </>
@@ -954,8 +1000,9 @@ export default function AdminEventsPanel({
                                     alt={speaker.name}
                                     className="w-12 h-12 rounded-full object-cover flex-shrink-0"
                                     onError={(e) => {
-                                      (e.target as HTMLImageElement).style.display =
-                                        "none";
+                                      (
+                                        e.target as HTMLImageElement
+                                      ).style.display = "none";
                                     }}
                                   />
                                 )}
@@ -982,7 +1029,8 @@ export default function AdminEventsPanel({
                                   )}
                                   {(speaker.startTime || speaker.endTime) && (
                                     <p className="text-xs text-finance-mint/70 mt-1">
-                                      🕐 {speaker.startTime || "—"} to {speaker.endTime || "—"}
+                                      🕐 {speaker.startTime || "—"} to{" "}
+                                      {speaker.endTime || "—"}
                                     </p>
                                   )}
                                 </div>
@@ -1230,9 +1278,10 @@ export default function AdminEventsPanel({
                     </div>
 
                     {/* Current Flagship Events */}
-                    {eventDetails.find((e) => e.id === "flagship-event")?.events &&
-                      eventDetails.find((e) => e.id === "flagship-event")!.events!
-                        .length > 0 && (
+                    {eventDetails.find((e) => e.id === "flagship-event")
+                      ?.events &&
+                      eventDetails.find((e) => e.id === "flagship-event")!
+                        .events!.length > 0 && (
                         <div className="mt-6">
                           <h4 className="text-lg font-semibold text-purple-300 mb-3">
                             Current Flagship Events:
@@ -1307,19 +1356,37 @@ export default function AdminEventsPanel({
                             value={newUpcomingEvent.dateInput}
                             onChange={(e) => handleDateChange(e.target.value)}
                             className="bg-finance-navy/50 border-finance-gold/20 focus:border-finance-gold/60"
-                            min={new Date().toISOString().split('T')[0]} // Prevent past dates
+                            min={new Date().toISOString().split("T")[0]} // Prevent past dates
                             title="Select the event date - countdown will be calculated automatically"
                           />
                           {newUpcomingEvent.date && (
                             <div className="bg-finance-navy/20 rounded p-2 space-y-1">
                               <div className="text-xs text-finance-electric">
-                                ✨ Display Format: <span className="font-medium">{newUpcomingEvent.date}</span>
+                                ✨ Display Format:{" "}
+                                <span className="font-medium">
+                                  {newUpcomingEvent.date}
+                                </span>
                               </div>
                               {newUpcomingEvent.countdown.days >= 0 && (
                                 <div className="text-xs text-green-400">
-                                  📅 <span className="font-medium">{newUpcomingEvent.countdown.days}</span> days from today
-                                  {newUpcomingEvent.countdown.days === 0 && <span className="text-green-300 font-bold"> (TODAY!)</span>}
-                                  {newUpcomingEvent.countdown.days <= 7 && newUpcomingEvent.countdown.days > 0 && <span className="text-orange-300"> (Soon!)</span>}
+                                  📅{" "}
+                                  <span className="font-medium">
+                                    {newUpcomingEvent.countdown.days}
+                                  </span>{" "}
+                                  days from today
+                                  {newUpcomingEvent.countdown.days === 0 && (
+                                    <span className="text-green-300 font-bold">
+                                      {" "}
+                                      (TODAY!)
+                                    </span>
+                                  )}
+                                  {newUpcomingEvent.countdown.days <= 7 &&
+                                    newUpcomingEvent.countdown.days > 0 && (
+                                      <span className="text-orange-300">
+                                        {" "}
+                                        (Soon!)
+                                      </span>
+                                    )}
                                 </div>
                               )}
                             </div>
@@ -1448,45 +1515,73 @@ export default function AdminEventsPanel({
                   >
                     <div className="flex items-center space-x-3 mb-4">
                       <Users className="w-6 h-6 text-finance-gold" />
-                      <h3 className="text-xl font-bold text-finance-gold">Manage Sponsors</h3>
+                      <h3 className="text-xl font-bold text-finance-gold">
+                        Manage Sponsors
+                      </h3>
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                       <Input
                         placeholder="Sponsor Name"
                         value={newSponsor.name}
-                        onChange={(e) => setNewSponsor((p) => ({ ...p, name: e.target.value }))}
+                        onChange={(e) =>
+                          setNewSponsor((p) => ({ ...p, name: e.target.value }))
+                        }
                         className="bg-finance-navy/50 border-finance-gold/20"
                       />
                       <Input
                         placeholder="Logo URL"
                         value={newSponsor.logo}
-                        onChange={(e) => setNewSponsor((p) => ({ ...p, logo: e.target.value }))}
+                        onChange={(e) =>
+                          setNewSponsor((p) => ({ ...p, logo: e.target.value }))
+                        }
                         className="bg-finance-navy/50 border-finance-gold/20"
                       />
                       <Input
                         placeholder="Industry"
                         value={newSponsor.industry}
-                        onChange={(e) => setNewSponsor((p) => ({ ...p, industry: e.target.value }))}
+                        onChange={(e) =>
+                          setNewSponsor((p) => ({
+                            ...p,
+                            industry: e.target.value,
+                          }))
+                        }
                         className="bg-finance-navy/50 border-finance-gold/20"
                       />
                       <Input
                         placeholder="Website (optional)"
                         value={newSponsor.website || ""}
-                        onChange={(e) => setNewSponsor((p) => ({ ...p, website: e.target.value }))}
+                        onChange={(e) =>
+                          setNewSponsor((p) => ({
+                            ...p,
+                            website: e.target.value,
+                          }))
+                        }
                         className="bg-finance-navy/50 border-finance-gold/20"
                       />
                       <div className="md:col-span-2 grid grid-cols-1 gap-3">
                         <Input
                           placeholder="Short Description"
                           value={newSponsor.description}
-                          onChange={(e) => setNewSponsor((p) => ({ ...p, description: e.target.value }))}
+                          onChange={(e) =>
+                            setNewSponsor((p) => ({
+                              ...p,
+                              description: e.target.value,
+                            }))
+                          }
                           className="bg-finance-navy/50 border-finance-gold/20"
                         />
                         <div className="flex items-center gap-3">
-                          <label className="text-sm text-finance-gold">Status</label>
+                          <label className="text-sm text-finance-gold">
+                            Status
+                          </label>
                           <select
                             value={newSponsor.isActive ? "current" : "past"}
-                            onChange={(e) => setNewSponsor((p) => ({ ...p, isActive: e.target.value === "current" }))}
+                            onChange={(e) =>
+                              setNewSponsor((p) => ({
+                                ...p,
+                                isActive: e.target.value === "current",
+                              }))
+                            }
                             className="bg-finance-navy/50 border border-finance-gold/20 rounded-lg px-3 py-2 text-sm"
                           >
                             <option value="current">Current</option>
@@ -1510,16 +1605,29 @@ export default function AdminEventsPanel({
                     transition={{ delay: 0.2 }}
                     className="bg-finance-navy/40 backdrop-blur-sm rounded-xl p-6 border border-finance-teal/20 sponsors-admin"
                   >
-                    <h4 className="text-lg font-semibold text-finance-teal mb-4">All Sponsors</h4>
+                    <h4 className="text-lg font-semibold text-finance-teal mb-4">
+                      All Sponsors
+                    </h4>
                     <div className="space-y-2">
                       {sponsors.map((sp) => (
-                        <div key={sp.id} className="grid grid-cols-1 md:grid-cols-6 gap-2 items-center bg-finance-navy/30 p-3 rounded-lg">
-                          <div className="md:col-span-2 font-medium text-foreground truncate">{sp.name}</div>
-                          <div className="text-sm text-foreground/70 truncate">{sp.industry}</div>
+                        <div
+                          key={sp.id}
+                          className="grid grid-cols-1 md:grid-cols-6 gap-2 items-center bg-finance-navy/30 p-3 rounded-lg"
+                        >
+                          <div className="md:col-span-2 font-medium text-foreground truncate">
+                            {sp.name}
+                          </div>
+                          <div className="text-sm text-foreground/70 truncate">
+                            {sp.industry}
+                          </div>
                           <div className="text-sm">
                             <select
                               value={sp.isActive ? "current" : "past"}
-                              onChange={(e) => updateSponsor(sp.id, { isActive: e.target.value === "current" })}
+                              onChange={(e) =>
+                                updateSponsor(sp.id, {
+                                  isActive: e.target.value === "current",
+                                })
+                              }
                               className="bg-finance-navy/50 border border-finance-gold/20 rounded px-2 py-1 text-xs"
                             >
                               <option value="current">Current</option>
@@ -1527,13 +1635,29 @@ export default function AdminEventsPanel({
                             </select>
                           </div>
                           <div className="flex gap-2 justify-end md:col-span-2">
-                            <Button size="sm" onClick={() => updateSponsor(sp.id, { name: sp.name })} className="bg-finance-teal text-finance-navy">Save</Button>
-                            <Button size="sm" variant="destructive" onClick={() => removeSponsor(sp.id)}>Remove</Button>
+                            <Button
+                              size="sm"
+                              onClick={() =>
+                                updateSponsor(sp.id, { name: sp.name })
+                              }
+                              className="bg-finance-teal text-finance-navy"
+                            >
+                              Save
+                            </Button>
+                            <Button
+                              size="sm"
+                              variant="destructive"
+                              onClick={() => removeSponsor(sp.id)}
+                            >
+                              Remove
+                            </Button>
                           </div>
                         </div>
                       ))}
                       {sponsors.length === 0 && (
-                        <div className="text-sm text-foreground/60">No sponsors yet.</div>
+                        <div className="text-sm text-foreground/60">
+                          No sponsors yet.
+                        </div>
                       )}
                     </div>
                   </motion.div>
