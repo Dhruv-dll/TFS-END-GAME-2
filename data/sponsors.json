@@ -47,39 +47,48 @@
     },
     {
       "id": "SBIGI",
-      "name": "SBI General Insurance",
+      "name": "",
       "logo": "https://github.com/Dhruv-dll/TFS_Final_3/blob/main/Icons/WhatsApp%20Image%202025-11-21%20at%2011.36.42_a9c49ff4.jpg?raw=true",
-      "industry": "Insurance",
+      "industry": "",
       "description": "",
       "isActive": true,
       "website": "https://www.sbigeneral.in/"
     },
     {
       "id": "KLAW",
-      "name": "KLAW Snacks",
+      "name": "",
       "logo": "https://github.com/Dhruv-dll/TFS_Final_3/blob/main/Icons/WhatsApp%20Image%202025-11-21%20at%2011.36.42_a9c49ff4.jpg?raw=true",
-      "industry": "Snacks",
+      "industry": "",
       "description": "",
       "isActive": true,
       "website": "https://getklaw.com/"
     },
     {
       "id": "EDNA",
-      "name": "Edunation Academy",
+      "name": "",
       "logo": "https://github.com/Dhruv-dll/TFS_Final_3/blob/main/Icons/WhatsApp%20Image%202025-11-21%20at%2011.36.42_a9c49ff4.jpg?raw=true",
-      "industry": "Edtech",
+      "industry": "",
       "description": "",
       "isActive": true,
       "website": "https://www.edunationacademy.co.in/"
     },
     {
-      "id": "EDNA",
-      "name": "Edunation Academy",
+      "id": "SkinSoul",
+      "name": "",
       "logo": "https://github.com/Dhruv-dll/TFS_Final_3/blob/main/Icons/WhatsApp%20Image%202025-11-21%20at%2011.36.42_a9c49ff4.jpg?raw=true",
-      "industry": "Edtech",
+      "industry": "",
       "description": "",
       "isActive": true,
-      "website": "https://www.edunationacademy.co.in/"
+      "website": "https://www.skinsoul.in/"
+    },
+    {
+      "id": "zuma",
+      "name": "",
+      "logo": "https://github.com/Dhruv-dll/TFS_Final_3/blob/main/Icons/WhatsApp%20Image%202025-11-21%20at%2011.36.42_a9c49ff4.jpg?raw=true",
+      "industry": "",
+      "description": "",
+      "isActive": true,
+      "website": ""
     }
   ],
   "lastModified": 1763624944455
