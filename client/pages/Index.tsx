@@ -346,8 +346,7 @@ export default function Index() {
   ];
 
   return (
-    <AuthProvider>
-      <EventPopupProvider>
+    <EventPopupProvider>
         <div className="min-h-screen">
           {/* Main Content */}
           <>
@@ -438,35 +437,12 @@ export default function Index() {
                     Designed with ❤️ by Dhruv Moghe
                   </div>
 
-                  {/* Admin Access Button */}
-                  <div className="mt-6 pt-4 border-t border-finance-cyan/20 flex justify-center">
-                    <button
-                      onClick={() => setShowLoginPanel(true)}
-                      className="px-3 py-1.5 text-xs text-finance-cyan/50 hover:text-finance-cyan/80 rounded border border-finance-cyan/20 hover:border-finance-cyan/50 transition-all duration-200 hover:bg-finance-cyan/5"
-                      title="Admin Access"
-                    >
-                      ⚙️ Admin
-                    </button>
-                  </div>
                 </div>
               </div>
             </footer>
           </>
 
-          {/* Admin Login Panel */}
-          <AdminLogin
-            isOpen={showLoginPanel}
-            onClose={() => setShowLoginPanel(false)}
-            onSuccess={() => setShowAdminPanel(true)}
-          />
-
-          {/* Admin Events Panel */}
-          <AdminEventsPanel
-            isOpen={showAdminPanel}
-            onClose={() => setShowAdminPanel(false)}
-          />
         </div>
       </EventPopupProvider>
-    </AuthProvider>
   );
 }
