@@ -449,6 +449,17 @@ export default function Index() {
                     © 2024 The Finance Symposium. All rights reserved. |
                     Designed with ❤️ by Dhruv Moghe
                   </div>
+
+                  {/* Admin Access Button */}
+                  <div className="mt-6 pt-4 border-t border-finance-cyan/20 flex justify-center">
+                    <button
+                      onClick={() => setShowLoginPanel(true)}
+                      className="px-3 py-1.5 text-xs text-finance-cyan/50 hover:text-finance-cyan/80 rounded border border-finance-cyan/20 hover:border-finance-cyan/50 transition-all duration-200 hover:bg-finance-cyan/5"
+                      title="Admin Access"
+                    >
+                      ⚙️ Admin
+                    </button>
+                  </div>
                 </div>
               </div>
             </footer>
