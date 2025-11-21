@@ -73,6 +73,8 @@ export default function AdminEventsPanel({
   const [newSession, setNewSession] = useState({
     name: "",
     description: "",
+    startTime: "",
+    endTime: "",
   });
 
   const [newSpeaker, setNewSpeaker] = useState({
@@ -80,6 +82,8 @@ export default function AdminEventsPanel({
     linkedinId: "",
     photo: "",
     bio: "",
+    startTime: "",
+    endTime: "",
   });
 
   const [selectedSessionForSpeaker, setSelectedSessionForSpeaker] = useState<string | null>(null);
@@ -670,7 +674,7 @@ export default function AdminEventsPanel({
                                   ))}
                                 </div>
                                 <div className="text-xs text-foreground/60 space-y-1">
-                                  <div>�� {mag.articles} Articles | 📥 {mag.downloads} Downloads | ⏱️ {mag.readTime}</div>
+                                  <div>📄 {mag.articles} Articles | 📥 {mag.downloads} Downloads | ⏱️ {mag.readTime}</div>
                                   <div className="text-finance-teal">
                                     <a
                                       href={mag.link}
