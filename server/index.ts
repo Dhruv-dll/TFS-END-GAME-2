@@ -1,6 +1,7 @@
 import "dotenv/config";
 import express from "express";
 import cors from "cors";
+import path from "path";
 import { handleDemo } from "./routes/demo";
 import { getMarketData } from "./routes/marketData";
 
@@ -11,6 +12,9 @@ export function createServer() {
   app.use(cors());
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
+
+  // Serve data folder as static files
+  app.use("/data", express.static(path.join(process.cwd(), "data")));
 
   // Example API routes
   app.get("/api/ping", (_req, res) => {
