@@ -5,6 +5,7 @@ The website now reads data directly from JSON files in the `/data` folder. You c
 ## File Structure Overview
 
 ### 1. **data/sponsors.json** - Sponsors Management
+
 Edit to add/remove/update sponsors displayed on the website.
 
 ```json
@@ -25,6 +26,7 @@ Edit to add/remove/update sponsors displayed on the website.
 ```
 
 **Fields:**
+
 - `id`: Unique identifier (use lowercase with hyphens, e.g., "icici-bank")
 - `name`: Sponsor's full name
 - `logo`: URL to sponsor logo image
@@ -37,6 +39,7 @@ Edit to add/remove/update sponsors displayed on the website.
 ---
 
 ### 2. **data/sessions.json** - Conclave Sessions & Speakers
+
 Edit to add/remove/update conference sessions and their speakers.
 
 ```json
@@ -68,6 +71,7 @@ Edit to add/remove/update conference sessions and their speakers.
 ```
 
 **Session Fields:**
+
 - `id`: Unique session identifier
 - `name`: Session title
 - `description`: Session description
@@ -78,6 +82,7 @@ Edit to add/remove/update conference sessions and their speakers.
 - `isActive`: Set to `true` to display session, `false` to hide
 
 **Speaker Fields:**
+
 - `id`: Unique speaker identifier
 - `name`: Speaker's full name
 - `linkedinId`: LinkedIn profile username (without the URL)
@@ -89,6 +94,7 @@ Edit to add/remove/update conference sessions and their speakers.
 ---
 
 ### 3. **data/magazines.json** - Finsight Magazine Editions
+
 Edit to add/remove/update magazine editions and articles.
 
 ```json
@@ -114,6 +120,7 @@ Edit to add/remove/update magazine editions and articles.
 ```
 
 **Fields:**
+
 - `id`: Unique magazine identifier
 - `title`: Magazine title
 - `edition`: Edition name/number
@@ -130,6 +137,7 @@ Edit to add/remove/update magazine editions and articles.
 ---
 
 ### 4. **data/luminaries.json** - Faculty & Leadership
+
 Edit to add/remove/update faculty members and leadership team members.
 
 ```json
@@ -168,6 +176,7 @@ Edit to add/remove/update faculty members and leadership team members.
 ```
 
 **Fields (same for both faculty and leadership):**
+
 - `id`: Unique identifier
 - `name`: Full name
 - `title`: Position/title
@@ -183,6 +192,7 @@ Edit to add/remove/update faculty members and leadership team members.
 ---
 
 ### 5. **data/events.json** - Past & Upcoming Events
+
 Edit to add/remove/update past events and upcoming events.
 
 ```json
@@ -227,11 +237,13 @@ Edit to add/remove/update past events and upcoming events.
 ```
 
 **Past Events Structure:**
+
 - Under `pastEvents`, you have three categories: `saturday-sessions`, `networking-events`, `flagship-event`
 - Each has `events` (array) and `comingSoon` (boolean)
 - Event object: `title` and optional `description`
 
 **Upcoming Events Fields:**
+
 - `id`: Unique event identifier
 - `title`: Event title
 - `date`: Event date (YYYY-MM-DD format)

@@ -10,7 +10,11 @@
       "downloads": 450,
       "readTime": "25 mins",
       "categories": ["Personal Finance", "Investment", "Financial Planning"],
-      "highlights": ["Beginner's Guide to Stock Market", "Mutual Funds Explained", "Portfolio Diversification"],
+      "highlights": [
+        "Beginner's Guide to Stock Market",
+        "Mutual Funds Explained",
+        "Portfolio Diversification"
+      ],
       "link": "https://example.com/finsight-edition-1",
       "isActive": true
     },
@@ -24,7 +28,11 @@
       "downloads": 320,
       "readTime": "18 mins",
       "categories": ["Economics", "Laws", "Policy"],
-      "highlights": ["New RBI Regulations", "GST Updates", "Foreign Investment Policy"],
+      "highlights": [
+        "New RBI Regulations",
+        "GST Updates",
+        "Foreign Investment Policy"
+      ],
       "link": "https://example.com/economic-news-laws",
       "isActive": true
     },
@@ -38,7 +46,11 @@
       "downloads": 280,
       "readTime": "22 mins",
       "categories": ["Corporate Finance", "Management", "Business"],
-      "highlights": ["Financial Analysis Techniques", "Risk Management", "Business Strategy"],
+      "highlights": [
+        "Financial Analysis Techniques",
+        "Risk Management",
+        "Business Strategy"
+      ],
       "link": "https://example.com/finance-management",
       "isActive": false
     }
