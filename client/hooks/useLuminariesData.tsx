@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import luminariesData from "../../data/luminaries.json";
 
 export interface TeamMember {
   id: string;
@@ -15,15 +14,40 @@ export interface TeamMember {
   isLeadership?: boolean;
 }
 
+interface LuminariesData {
+  faculty: TeamMember[];
+  leadership: TeamMember[];
+}
+
+const defaultData: LuminariesData = {
+  faculty: [],
+  leadership: [],
+};
+
 export function useLuminariesData() {
   const [faculty, setFaculty] = useState<TeamMember[]>([]);
   const [leadership, setLeadership] = useState<TeamMember[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    setFaculty(luminariesData.faculty);
-    setLeadership(luminariesData.leadership);
-    setLoading(false);
+    const loadLuminaries = async () => {
+      try {
+        const response = await fetch("/data/luminaries.json");
+        if (response.ok) {
+          const data = await response.json();
+          setFaculty(data.faculty || []);
+          setLeadership(data.leadership || []);
+        }
+      } catch (error) {
+        console.warn("Failed to load luminaries:", error);
+        setFaculty(defaultData.faculty);
+        setLeadership(defaultData.leadership);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadLuminaries();
   }, []);
 
   return {
