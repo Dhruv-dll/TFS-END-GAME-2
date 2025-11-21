@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import magazinesData from "../../data/magazines.json";
 
 export interface Magazine {
   id: string;
@@ -16,13 +15,29 @@ export interface Magazine {
   isActive: boolean;
 }
 
+const defaultMagazines: Magazine[] = [];
+
 export function useFinsightMagazines() {
-  const [magazines, setMagazines] = useState<Magazine[]>([]);
+  const [magazines, setMagazines] = useState<Magazine[]>(defaultMagazines);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    setMagazines(magazinesData.magazines);
-    setLoading(false);
+    const loadMagazines = async () => {
+      try {
+        const response = await fetch("/data/magazines.json");
+        if (response.ok) {
+          const data = await response.json();
+          setMagazines(data.magazines || []);
+        }
+      } catch (error) {
+        console.warn("Failed to load magazines:", error);
+        setMagazines(defaultMagazines);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadMagazines();
   }, []);
 
   return {
